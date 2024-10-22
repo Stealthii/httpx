@@ -9,153 +9,153 @@
     long-lived connections.
 
 ::: httpx.request
-    :docstring:
+    options:
+        heading_level: 3
 
 ::: httpx.get
-    :docstring:
+    options:
+        heading_level: 3
 
 ::: httpx.options
-    :docstring:
+    options:
+        heading_level: 3
 
 ::: httpx.head
-    :docstring:
+    options:
+        heading_level: 3
 
 ::: httpx.post
-    :docstring:
+    options:
+        heading_level: 3
 
 ::: httpx.put
-    :docstring:
+    options:
+        heading_level: 3
 
 ::: httpx.patch
-    :docstring:
+    options:
+        heading_level: 3
 
 ::: httpx.delete
-    :docstring:
+    options:
+        heading_level: 3
 
 ::: httpx.stream
-    :docstring:
-
-## `Client`
+    options:
+        heading_level: 3
 
 ::: httpx.Client
-    :docstring:
-    :members: headers cookies params auth request get head options post put patch delete stream build_request send close
-
-## `AsyncClient`
+    options:
+        members:
+            - headers
+            - cookies
+            - params
+            - auth
+            - request
+            - get
+            - head
+            - options
+            - post
+            - put
+            - patch
+            - delete
+            - stream
+            - build_request
+            - send
+            - close
 
 ::: httpx.AsyncClient
-    :docstring:
-    :members: headers cookies params auth request get head options post put patch delete stream build_request send aclose
+    options:
+        members:
+            - headers
+            - cookies
+            - params
+            - auth
+            - request
+            - get
+            - head
+            - options
+            - post
+            - put
+            - patch
+            - delete
+            - stream
+            - build_request
+            - send
+            - aclose
 
+::: httpx.Response
+    options:
+        members:
+            - status_code
+            - reason_phrase
+            - http_version
+            - url
+            - headers
+            - content
+            - text
+            - encoding
+            - is_redirect
+            - request
+            - next_request
+            - cookies
+            - history
+            - elapsed
+            - raise_for_status
+            - json
+            - read
+            - iter_raw
+            - iter_bytes
+            - iter_text
+            - iter_lines
+            - close
+            - next
+            - aread
+            - aiter_raw
+            - aiter_bytes
+            - aiter_text
+            - aiter_lines
+            - aclose
+            - anext
 
-## `Response`
+::: httpx.Request
+    options:
+        members:
+            - method
+            - url
+            - content
+            - headers
+            - cookies
 
-*An HTTP response.*
+::: httpx.URL
+    options:
+        members:
+            - scheme
+            - authority
+            - host
+            - port
+            - path
+            - query
+            - raw_path
+            - fragment
+            - is_ssl
+            - is_absolute_url
+            - is_relative_url
+            - copy_with
 
-* `def __init__(...)`
-* `.status_code` - **int**
-* `.reason_phrase` - **str**
-* `.http_version` - `"HTTP/2"` or `"HTTP/1.1"`
-* `.url` - **URL**
-* `.headers` - **Headers**
-* `.content` - **bytes**
-* `.text` - **str**
-* `.encoding` - **str**
-* `.is_redirect` - **bool**
-* `.request` - **Request**
-* `.next_request` - **Optional[Request]**
-* `.cookies` - **Cookies**
-* `.history` - **List[Response]**
-* `.elapsed` - **[timedelta](https://docs.python.org/3/library/datetime.html)**
-  * The amount of time elapsed between sending the request and calling `close()` on the corresponding response received for that request.
-  [total_seconds()](https://docs.python.org/3/library/datetime.html#datetime.timedelta.total_seconds) to correctly get
-  the total elapsed seconds.
-* `def .raise_for_status()` - **Response**
-* `def .json()` - **Any**
-* `def .read()` - **bytes**
-* `def .iter_raw([chunk_size])` - **bytes iterator**
-* `def .iter_bytes([chunk_size])` - **bytes iterator**
-* `def .iter_text([chunk_size])` - **text iterator**
-* `def .iter_lines()` - **text iterator**
-* `def .close()` - **None**
-* `def .next()` - **Response**
-* `def .aread()` - **bytes**
-* `def .aiter_raw([chunk_size])` - **async bytes iterator**
-* `def .aiter_bytes([chunk_size])` - **async bytes iterator**
-* `def .aiter_text([chunk_size])` - **async text iterator**
-* `def .aiter_lines()` - **async text iterator**
-* `def .aclose()` - **None**
-* `def .anext()` - **Response**
+::: httpx.Headers
+    options:
+        members:
+            - __init__
+            - copy
 
-## `Request`
-
-*An HTTP request. Can be constructed explicitly for more control over exactly
-what gets sent over the wire.*
-
-```pycon
->>> request = httpx.Request("GET", "https://example.org", headers={'host': 'example.org'})
->>> response = client.send(request)
-```
-
-* `def __init__(method, url, [params], [headers], [cookies], [content], [data], [files], [json], [stream])`
-* `.method` - **str**
-* `.url` - **URL**
-* `.content` - **byte**, **byte iterator**, or **byte async iterator**
-* `.headers` - **Headers**
-* `.cookies` - **Cookies**
-
-## `URL`
-
-*A normalized, IDNA supporting URL.*
-
-```pycon
->>> url = URL("https://example.org/")
->>> url.host
-'example.org'
-```
-
-* `def __init__(url, **kwargs)`
-* `.scheme` - **str**
-* `.authority` - **str**
-* `.host` - **str**
-* `.port` - **int**
-* `.path` - **str**
-* `.query` - **str**
-* `.raw_path` - **str**
-* `.fragment` - **str**
-* `.is_ssl` - **bool**
-* `.is_absolute_url` - **bool**
-* `.is_relative_url` - **bool**
-* `def .copy_with([scheme], [authority], [path], [query], [fragment])` - **URL**
-
-## `Headers`
-
-*A case-insensitive multi-dict.*
-
-```pycon
->>> headers = Headers({'Content-Type': 'application/json'})
->>> headers['content-type']
-'application/json'
-```
-
-* `def __init__(self, headers, encoding=None)`
-* `def copy()` - **Headers**
-
-## `Cookies`
-
-*A dict-like cookie store.*
-
-```pycon
->>> cookies = Cookies()
->>> cookies.set("name", "value", domain="example.org")
-```
-
-* `def __init__(cookies: [dict, Cookies, CookieJar])`
-* `.jar` - **CookieJar**
-* `def extract_cookies(response)`
-* `def set_cookie_header(request)`
-* `def set(name, value, [domain], [path])`
-* `def get(name, [domain], [path])`
-* `def delete(name, [domain], [path])`
-* `def clear([domain], [path])`
-* *Standard mutable mapping interface*
+::: httpx.Cookies
+    options:
+        members:
+            - jar
+            - extract_cookies
+            - set_cookie_header
+            - set
+            - get
+            - delete
+            - clear

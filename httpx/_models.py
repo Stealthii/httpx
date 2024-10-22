@@ -59,6 +59,13 @@ __all__ = ["Cookies", "Headers", "Request", "Response"]
 class Headers(typing.MutableMapping[str, str]):
     """
     HTTP headers, as a case-insensitive multi-dict.
+
+    ```pycon
+    >>> headers = Headers({'Content-Type': 'application/json'})
+    >>> headers['content-type']
+    'application/json'
+    ```
+
     """
 
     def __init__(
@@ -308,6 +315,18 @@ class Headers(typing.MutableMapping[str, str]):
 
 
 class Request:
+    """
+    An HTTP request. Can be constructed explicitly for more control over exactly what
+    gets sent over the wire.
+
+    ```pycon
+    >>> request = httpx.Request("GET", "https://example.org", headers={'host':
+    'example.org'})
+    >>> response = client.send(request)
+    ```
+
+    """
+
     def __init__(
         self,
         method: str | bytes,
@@ -1013,6 +1032,12 @@ class Response:
 class Cookies(typing.MutableMapping[str, str]):
     """
     HTTP Cookies, as a mutable mapping.
+
+    ```pycon
+    >>> cookies = Cookies()
+    >>> cookies.set("name", "value", domain="example.org")
+    ```
+
     """
 
     def __init__(self, cookies: CookieTypes | None = None) -> None:

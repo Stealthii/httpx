@@ -14,8 +14,15 @@ __all__ = ["URL", "QueryParams"]
 
 class URL:
     """
-    url = httpx.URL("HTTPS://jo%40email.com:a%20secret@müller.de:1234/pa%20th?search=ab#anchorlink")
+    A normalized, IDNA supporting URL.
 
+    ```pycon
+    >>> url = URL("https://example.org/")
+    >>> url.host
+    'example.org'
+    ```
+    ```python
+    url = httpx.URL("HTTPS://jo%40email.com:a%20secret@müller.de:1234/pa%20th?search=ab#anchorlink")
     assert url.scheme == "https"
     assert url.username == "jo@email.com"
     assert url.password == "a secret"
@@ -28,12 +35,15 @@ class URL:
     assert url.query == b"?search=ab"
     assert url.raw_path == b"/pa%20th?search=ab"
     assert url.fragment == "anchorlink"
+    ```
 
     The components of a URL are broken down like this:
 
-       https://jo%40email.com:a%20secret@müller.de:1234/pa%20th?search=ab#anchorlink
-    [scheme]   [  username  ] [password] [ host ][port][ path ] [ query ] [fragment]
-               [       userinfo        ] [   netloc   ][    raw_path    ]
+    ```
+    https://jo%40email.com:a%20secret@müller.de:1234/pa%20th?search=ab#anchorlink
+    [scheme][  username  ] [password] [ host ][port][ path ] [ query ] [fragment]
+            [       userinfo        ] [   netloc   ][    raw_path    ]
+    ```
 
     Note that:
 
@@ -42,25 +52,31 @@ class URL:
     * `url.host` is normalized to always be lowercased. Internationalized domain
       names are represented in unicode, without IDNA encoding applied. For instance:
 
+      ```python
       url = httpx.URL("http://中国.icom.museum")
       assert url.host == "中国.icom.museum"
       url = httpx.URL("http://xn--fiqs8s.icom.museum")
       assert url.host == "中国.icom.museum"
+      ```
 
     * `url.raw_host` is normalized to always be lowercased, and is IDNA encoded.
 
+      ```python
       url = httpx.URL("http://中国.icom.museum")
       assert url.raw_host == b"xn--fiqs8s.icom.museum"
       url = httpx.URL("http://xn--fiqs8s.icom.museum")
       assert url.raw_host == b"xn--fiqs8s.icom.museum"
+      ```
 
     * `url.port` is either None or an integer. URLs that include the default port for
       "http", "https", "ws", "wss", and "ftp" schemes have their port
       normalized to `None`.
 
+      ```python
       assert httpx.URL("http://example.com") == httpx.URL("http://example.com:80")
       assert httpx.URL("http://example.com").port is None
       assert httpx.URL("http://example.com:80").port is None
+      ```
 
     * `url.userinfo` is raw bytes, without URL escaping. Usually you'll want to work
       with `url.username` and `url.password` instead, which handle the URL escaping.
