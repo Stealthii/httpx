@@ -10,8 +10,10 @@ chardet==5.2.0
 
 # Documentation
 mkdocs==1.6.1
-mkautodoc==0.2.0
+mkdocs-autorefs==1.2.0
+mkdocstrings[python]==0.26.2
 mkdocs-material==9.5.39
+black==24.10.0  # Used by mkdocstrings
 
 # Packaging
 build==1.2.2

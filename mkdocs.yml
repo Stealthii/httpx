@@ -3,59 +3,94 @@ site_description: A next-generation HTTP client for Python.
 site_url: https://www.python-httpx.org/
 
 theme:
-    name: 'material'
-    custom_dir: 'docs/overrides'
-    palette:
-      - scheme: 'default'
-        media: '(prefers-color-scheme: light)'
-        toggle:
-          icon: 'material/lightbulb'
-          name: "Switch to dark mode"
-      - scheme: 'slate'
-        media: '(prefers-color-scheme: dark)'
-        primary: 'blue'
-        toggle:
-          icon: 'material/lightbulb-outline'
-          name: 'Switch to light mode'
+  name: "material"
+  custom_dir: "docs/overrides"
+  palette:
+    - scheme: "default"
+      media: "(prefers-color-scheme: light)"
+      toggle:
+        icon: "material/lightbulb"
+        name: "Switch to dark mode"
+    - scheme: "slate"
+      media: "(prefers-color-scheme: dark)"
+      primary: "blue"
+      toggle:
+        icon: "material/lightbulb-outline"
+        name: "Switch to light mode"
 
 repo_name: encode/httpx
 repo_url: https://github.com/encode/httpx/
 edit_uri: ""
 
 nav:
-    - Introduction: 'index.md'
-    - QuickStart: 'quickstart.md'
-    - Advanced:
-        - Clients: 'advanced/clients.md'
-        - Authentication: 'advanced/authentication.md'
-        - SSL: 'advanced/ssl.md'
-        - Proxies: 'advanced/proxies.md'
-        - Timeouts: 'advanced/timeouts.md'
-        - Resource Limits: 'advanced/resource-limits.md'
-        - Event Hooks: 'advanced/event-hooks.md'
-        - Transports: 'advanced/transports.md'
-        - Text Encodings: 'advanced/text-encodings.md'
-        - Extensions: 'advanced/extensions.md'
-    - Guides:
-        - Async Support: 'async.md'
-        - HTTP/2 Support: 'http2.md'
-        - Logging: 'logging.md'
-        - Requests Compatibility: 'compatibility.md'
-        - Troubleshooting: 'troubleshooting.md'
-    - API Reference:
-        - Developer Interface: 'api.md'
-        - Exceptions: 'exceptions.md'
-        - Environment Variables: 'environment_variables.md'
-    - Community:
-        - Third Party Packages: 'third_party_packages.md'
-        - Contributing: 'contributing.md'
-        - Code of Conduct: 'code_of_conduct.md'
+  - Introduction: "index.md"
+  - QuickStart: "quickstart.md"
+  - Advanced:
+      - Clients: "advanced/clients.md"
+      - Authentication: "advanced/authentication.md"
+      - SSL: "advanced/ssl.md"
+      - Proxies: "advanced/proxies.md"
+      - Timeouts: "advanced/timeouts.md"
+      - Resource Limits: "advanced/resource-limits.md"
+      - Event Hooks: "advanced/event-hooks.md"
+      - Transports: "advanced/transports.md"
+      - Text Encodings: "advanced/text-encodings.md"
+      - Extensions: "advanced/extensions.md"
+  - Guides:
+      - Async Support: "async.md"
+      - HTTP/2 Support: "http2.md"
+      - Logging: "logging.md"
+      - Requests Compatibility: "compatibility.md"
+      - Troubleshooting: "troubleshooting.md"
+  - API Reference:
+      - Developer Interface: "api.md"
+      - Exceptions: "exceptions.md"
+      - Environment Variables: "environment_variables.md"
+  - Community:
+      - Third Party Packages: "third_party_packages.md"
+      - Contributing: "contributing.md"
+      - Code of Conduct: "code_of_conduct.md"
 
 markdown_extensions:
   - admonition
   - codehilite:
       css_class: highlight
-  - mkautodoc
+  - toc:
+      toc_depth: 2
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          import:
+            - https://docs.python.org/3/objects.inv
+            - https://installer.readthedocs.io/en/stable/objects.inv # demonstration purpose in the docs
+            - https://mkdocstrings.github.io/autorefs/objects.inv
+            - https://www.mkdocs.org/objects.inv
+            - https://python-markdown.github.io/objects.inv
+          paths: [httpx]
+          options:
+            # General
+            show_bases: false
+            show_source: false
+            # Headings
+            heading_level: 2
+            parameter_headings: false
+            show_root_heading: true
+            show_category_heading: false
+            show_signature: true
+            show_root_toc_entry: false
+            show_root_full_path: false
+            show_root_members_full_path: false
+            docstring_section_style: list
+            separate_signature: true
+            #line_length: 60
+            merge_init_into_class: true
+            docstring_options:
+              show_root_full_path: true
+              ignore_init_summary: true
+            filters: ["!^_"]
 
 extra_css:
-    - css/custom.css
+  - css/custom.css
